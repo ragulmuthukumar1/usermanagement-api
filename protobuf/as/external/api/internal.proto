@@ -27,12 +27,12 @@ service InternalService {
 		};
 	}
 
-	// Perform a global search.
-	rpc GlobalSearch(GlobalSearchRequest) returns (GlobalSearchResponse) {
-		option(google.api.http) = {
-			get: "/api/internal/search"
-		};
-	}
+	// // Perform a global search.
+	// rpc GlobalSearch(GlobalSearchRequest) returns (GlobalSearchResponse) {
+	// 	option(google.api.http) = {
+	// 		get: "/api/internal/search"
+	// 	};
+	// }
 
     // CreateAPIKey creates the given API key.
     rpc CreateAPIKey(CreateAPIKeyRequest) returns (CreateAPIKeyResponse) {
@@ -70,19 +70,19 @@ service InternalService {
         };
     }
 
-    // GetDevicesSummary returns an aggregated summary of the devices.
-    rpc GetDevicesSummary(GetDevicesSummaryRequest) returns (GetDevicesSummaryResponse) {
-        option(google.api.http) = {
-            get: "/api/internal/devices/summary"
-        };
-    }
+    // // GetDevicesSummary returns an aggregated summary of the devices.
+    // rpc GetDevicesSummary(GetDevicesSummaryRequest) returns (GetDevicesSummaryResponse) {
+    //     option(google.api.http) = {
+    //         get: "/api/internal/devices/summary"
+    //     };
+    // }
 
-    // GetGatewaysSummary returns an aggregated summary of the gateways.
-    rpc GetGatewaysSummary(GetGatewaysSummaryRequest) returns (GetGatewaysSummaryResponse) {
-        option(google.api.http) = {
-            get: "/api/internal/gateways/summary"
-        };
-    }
+    // // GetGatewaysSummary returns an aggregated summary of the gateways.
+    // rpc GetGatewaysSummary(GetGatewaysSummaryRequest) returns (GetGatewaysSummaryResponse) {
+    //     option(google.api.http) = {
+    //         get: "/api/internal/gateways/summary"
+    //     };
+    // }
 }
 
 message APIKey {
