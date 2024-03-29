@@ -306,18 +306,18 @@ message OpenIDConnectLoginResponse {
 //     uint32 never_seen_count = 4;
 // }
 
-message GetGatewaysSummaryRequest {
-    // Organization ID.
-    int64 organization_id = 1 [json_name = "organizationID"];
-}
+// message GetGatewaysSummaryRequest {
+//     // Organization ID.
+//     int64 organization_id = 1 [json_name = "organizationID"];
+// }
 
-message GetGatewaysSummaryResponse {
-    // Active count.
-    uint32 active_count = 1;
+// message GetGatewaysSummaryResponse {
+//     // Active count.
+//     uint32 active_count = 1;
 
-    // Inactive count.
-    uint32 inactive_count = 2;
+//     // Inactive count.
+//     uint32 inactive_count = 2;
 
-    // Never seen count.
-    uint32 never_seen_count = 3;
-}
+//     // Never seen count.
+//     uint32 never_seen_count = 3;
+// }
