@@ -286,25 +286,25 @@ message OpenIDConnectLoginResponse {
     string jwt_token = 1;
 }
 
-message GetDevicesSummaryRequest {
-    // Organization ID.
-    int64 organization_id = 1 [json_name = "organizationID"];
-}
+// message GetDevicesSummaryRequest {
+//     // Organization ID.
+//     int64 organization_id = 1 [json_name = "organizationID"];
+// }
 
-message GetDevicesSummaryResponse {
-    // Active count.
-    uint32 active_count = 1;
+// message GetDevicesSummaryResponse {
+//     // Active count.
+//     uint32 active_count = 1;
 
-    // Inactive count.
-    uint32 inactive_count = 2;
+//     // Inactive count.
+//     uint32 inactive_count = 2;
 
-    // per data-rate count.
-    // Devices that have never been seen are excluded.
-    map<uint32, uint32> dr_count = 3;
+//     // per data-rate count.
+//     // Devices that have never been seen are excluded.
+//     map<uint32, uint32> dr_count = 3;
 
-    // Never seen count.
-    uint32 never_seen_count = 4;
-}
+//     // Never seen count.
+//     uint32 never_seen_count = 4;
+// }
 
 message GetGatewaysSummaryRequest {
     // Organization ID.
