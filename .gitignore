@@ -1,0 +1,15 @@
+# hidden files
+.*
+
+# rust
+/rust/target
+
+
+# python
+/python/proto/
+/python/src/*.egg-info/
+/python/src/build/
+/python/src/dist/
+
+# java
+/java/build/
