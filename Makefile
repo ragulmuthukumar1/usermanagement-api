@@ -8,5 +8,3 @@ go:
 
 swagger:
 	docker-compose run --rm platform-api-swagger
-
-

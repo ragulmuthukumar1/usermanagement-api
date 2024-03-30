@@ -1,0 +1,225 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "github.com/clodpi/platform-api/go/v3/as/external/api";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "common/common.proto";
+
+
+
+// DeviceService is the service managing the devices.
+service DeviceService {
+    // Create creates the given device.
+    rpc Create(CreateDeviceRequest) returns (google.protobuf.Empty) {
+        option(google.api.http) = {
+            post: "/api/devices"
+            body: "*"
+        };
+    }
+
+    // Get returns the device matching the given DevEUI.
+    rpc Get(GetDeviceRequest) returns (GetDeviceResponse) {
+        option (google.api.http) = {
+            get: "/api/devices/{dev_eui}"
+        };
+    }
+
+    // List returns the available devices.
+    rpc List(ListDeviceRequest) returns (ListDeviceResponse) {
+        option (google.api.http) = {
+            get: "/api/devices"
+        };
+    }
+
+    // Delete deletes the device matching the given DevEUI.
+    rpc Delete(DeleteDeviceRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/api/devices/{dev_eui}"
+        };
+    }
+
+    // Update updates the device matching the given DevEUI.
+    rpc Update(UpdateDeviceRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            put: "/api/devices/{device.dev_eui}"
+            body: "*"
+        };
+    }
+
+    // CreateKeys creates the given device-keys.
+    rpc CreateKeys(CreateDeviceProfileRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/api/devices/{device_profile.dev_eui}/keys"
+            body: "*"
+        };
+    }
+
+    // GetKeys returns the device-keys for the given DevEUI.
+    rpc GetKeys(GetDeviceProfileRequest) returns (GetDeviceProfileResponse) {
+        option (google.api.http) = {
+            get: "/api/devices/{dev_eui}/keys"
+        };
+    }
+
+    // UpdateKeys updates the device-keys.
+    rpc UpdateKeys(UpdateDeviceProfileRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            put: "/api/devices/{device_profile.dev_eui}/keys"
+            body: "*"
+        };
+    }
+
+    // DeleteKeys deletes the device-keys for the given DevEUI.
+    rpc DeleteKeys(DeleteDeviceProfileRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/api/devices/{dev_eui}/keys"
+        };
+    };
+
+}
+
+message Device {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+
+    // Name of the device (if left blank, it will be set to the DevEUI).
+    string name = 2;
+
+    // Description of the device.
+    string description = 3;
+
+    // Device is onboarded to respective server.
+    bool is_onboarded = 4;
+
+	// Device is agateway.
+	bool is_gateway = 5;
+
+	// Device is onboarding server internal or external.
+	bool is_onboarding_server_external = 6;
+
+	// Device is mode of communication like LoRaWAN, MQTT, GSM, TCP, CoAP.
+	string communication = 7;
+
+	// Device type like WaterMeter, TempSensor, Energy Meter.
+	string type = 8;
+
+    // Variables (user defined).
+    // These variables can be used together with integrations to store tokens /
+    // secrets that must be configured per device. These variables are not
+    // exposed in the event payloads.
+    map<string, string> variables = 9;
+
+    // Tags (user defined).
+    // These tags are exposed in the event payloads or to integration. Tags are
+    // intended for aggregation and filtering.
+    map<string, string> tags = 10;
+
+	// Created at timestamp.
+    google.protobuf.Timestamp created_at = 11;
+
+    // Last update timestamp.
+	google.protobuf.Timestamp updated_at = 12;
+
+}
+
+message DeviceListItem {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+
+    // Name of the device.
+    string name = 2;
+
+    // Description of the device.
+    string description = 3;
+
+}
+
+message DeviceProfile {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+
+    // profile json
+    string profile = 2;
+}
+
+message CreateDeviceRequest {
+    // Device object to create.
+    Device device = 1;
+}
+
+message GetDeviceRequest {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "devEUI"];
+}
+
+message GetDeviceResponse {
+    // Device object.
+    Device device = 1;
+
+    // Created at 2
+    // Updated at 3
+    // First seen at 4
+
+}
+
+message ListDeviceRequest {
+    // Max number of devices to return in the result-set.
+    int64 limit = 1;
+
+    // Offset in the result-set (for pagination).
+    int64 offset = 2;
+
+    // Search on name or DevEUI.
+    string search = 3;
+
+    // Tags to filter on.
+    map<string, string> tags = 4;
+}
+
+message ListDeviceResponse {
+    // Total number of devices available within the result-set.
+    int64 total_count = 1;
+
+    // Devices within this result-set.
+    repeated DeviceListItem result = 2;
+}
+
+message DeleteDeviceRequest {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+}
+
+message UpdateDeviceRequest {
+    // Device object to update.
+    Device device = 1;
+}
+
+message CreateDeviceProfileRequest {
+    // Device-keys object to create.
+    DeviceProfile device_profile = 1;
+}
+
+message GetDeviceProfileRequest {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+}
+
+message GetDeviceProfileResponse {
+    // Device-key object.
+    DeviceProfile device_profile = 1;
+}
+
+message UpdateDeviceProfileRequest {
+    // Device-keys object to update.
+    DeviceProfile device_profile = 1;
+}
+
+message DeleteDeviceProfileRequest {
+    // Device EUI (HEX encoded).
+    string dev_eui = 1 [json_name = "UUID"];
+}
+
