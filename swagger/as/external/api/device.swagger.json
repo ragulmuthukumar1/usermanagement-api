@@ -46,7 +46,7 @@
           },
           {
             "name": "search",
-            "description": "Search on name or DevEUI.",
+            "description": "Search on name or UUID.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -82,57 +82,7 @@
         ]
       }
     },
-    "/api/devices/{dev_eui}": {
-      "get": {
-        "summary": "Get returns the device matching the given DevEUI.",
-        "operationId": "Get",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/apiGetDeviceResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      },
-      "delete": {
-        "summary": "Delete deletes the device matching the given DevEUI.",
-        "operationId": "Delete",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      }
-    },
-    "/api/devices/{device.dev_eui}": {
+    "/api/devices/{device.uuid}": {
       "put": {
         "summary": "Update updates the device matching the given DevEUI.",
         "operationId": "Update",
@@ -146,7 +96,7 @@
         },
         "parameters": [
           {
-            "name": "device.dev_eui",
+            "name": "device.uuid",
             "description": "Device EUI (HEX encoded).",
             "in": "path",
             "required": true,
@@ -159,6 +109,56 @@
             "schema": {
               "$ref": "#/definitions/apiUpdateDeviceRequest"
             }
+          }
+        ],
+        "tags": [
+          "DeviceService"
+        ]
+      }
+    },
+    "/api/devices/{uuid}": {
+      "get": {
+        "summary": "Get returns the device matching the given UUID.",
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "description": "Device EUI (HEX encoded).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceService"
+        ]
+      },
+      "delete": {
+        "summary": "Delete deletes the device matching the given UUID.",
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "description": "Device EUI (HEX encoded).",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -230,7 +230,10 @@
           "description": "Tags (user defined).\nThese tags are exposed in the event payloads or to integration. Tags are\nintended for aggregation and filtering."
         },
         "profile": {
-          "type": "string",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
           "title": "Device Profile"
         },
         "createdAt": {

@@ -21,10 +21,10 @@ service DeviceService {
         };
     }
 
-    // Get returns the device matching the given DevEUI.
+    // Get returns the device matching the given UUID.
     rpc Get(GetDeviceRequest) returns (GetDeviceResponse) {
         option (google.api.http) = {
-            get: "/api/devices/{dev_eui}"
+            get: "/api/devices/{uuid}"
         };
     }
 
@@ -35,56 +35,26 @@ service DeviceService {
         };
     }
 
-    // Delete deletes the device matching the given DevEUI.
+    // Delete deletes the device matching the given UUID.
     rpc Delete(DeleteDeviceRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            delete: "/api/devices/{dev_eui}"
+            delete: "/api/devices/{uuid}"
         };
     }
 
     // Update updates the device matching the given DevEUI.
     rpc Update(UpdateDeviceRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            put: "/api/devices/{device.dev_eui}"
+            put: "/api/devices/{device.uuid}"
             body: "*"
         };
     }
-
-    // // CreateDeviceProfile creates the given device profile.
-    // rpc CreateDeviceProfile(CreateDeviceProfileRequest) returns (google.protobuf.Empty) {
-    //     option (google.api.http) = {
-    //         post: "/api/devices/{device_profile.dev_eui}/profile"
-    //         body: "*"
-    //     };
-    // }
-
-    // // GetDeviceProfile returns the device profile for the given UUID.
-    // rpc GetDeviceProfile(GetDeviceProfileRequest) returns (GetDeviceProfileResponse) {
-    //     option (google.api.http) = {
-    //         get: "/api/devices/{dev_eui}/profile"
-    //     };
-    // }
-
-    // // UpdateDeviceProfile updates the device profile.
-    // rpc UpdateDeviceProfile(UpdateDeviceProfileRequest) returns (google.protobuf.Empty) {
-    //     option (google.api.http) = {
-    //         put: "/api/devices/{device_profile.dev_eui}/profile"
-    //         body: "*"
-    //     };
-    // }
-
-    // // DeleteDeviceProfile deletes the device profile for the given DevEUI.
-    // rpc DeleteDeviceProfile(DeleteDeviceProfileRequest) returns (google.protobuf.Empty) {
-    //     option (google.api.http) = {
-    //         delete: "/api/devices/{dev_eui}/profile"
-    //     };
-    // };
 
 }
 
 message Device {
     // Device EUI (HEX encoded).
-    string dev_eui = 1 [json_name = "UUID"];
+    string uuid = 1 [json_name = "UUID"];
 
     // Name of the device (if left blank, it will be set to the DevEUI).
     string name = 2;
@@ -119,7 +89,7 @@ message Device {
     map<string, string> tags = 10;
 
 	//Device Profile
-	string profile = 11;
+	map<string, string> profile = 11;
 
 	// Created at timestamp.
     google.protobuf.Timestamp created_at = 12;
@@ -131,7 +101,7 @@ message Device {
 
 message DeviceListItem {
     // Device EUI (HEX encoded).
-    string dev_eui = 1 [json_name = "UUID"];
+    string uuid = 1 [json_name = "UUID"];
 
     // Name of the device.
     string name = 2;
@@ -141,13 +111,7 @@ message DeviceListItem {
 
 }
 
-// message DeviceProfile {
-//     // Device EUI (HEX encoded).
-//     string dev_eui = 1 [json_name = "UUID"];
 
-//     // profile json
-//     string profile = 2;
-// }
 
 message CreateDeviceRequest {
     // Device object to create.
@@ -156,7 +120,7 @@ message CreateDeviceRequest {
 
 message GetDeviceRequest {
     // Device EUI (HEX encoded).
-    string dev_eui = 1 [json_name = "devEUI"];
+    string uuid = 1 [json_name = "uuid"];
 }
 
 message GetDeviceResponse {
@@ -176,7 +140,7 @@ message ListDeviceRequest {
     // Offset in the result-set (for pagination).
     int64 offset = 2;
 
-    // Search on name or DevEUI.
+    // Search on name or UUID.
     string search = 3;
 
     // Tags to filter on.
@@ -193,7 +157,7 @@ message ListDeviceResponse {
 
 message DeleteDeviceRequest {
     // Device EUI (HEX encoded).
-    string dev_eui = 1 [json_name = "UUID"];
+    string uuid = 1 [json_name = "UUID"];
 }
 
 message UpdateDeviceRequest {
@@ -201,28 +165,5 @@ message UpdateDeviceRequest {
     Device device = 1;
 }
 
-// message CreateDeviceProfileRequest {
-//     // Device-keys object to create.
-//     DeviceProfile device_profile = 1;
-// }
 
-// message GetDeviceProfileRequest {
-//     // Device EUI (HEX encoded).
-//     string dev_eui = 1 [json_name = "UUID"];
-// }
-
-// message GetDeviceProfileResponse {
-//     // Device-key object.
-//     DeviceProfile device_profile = 1;
-// }
-
-// message UpdateDeviceProfileRequest {
-//     // Device-keys object to update.
-//     DeviceProfile device_profile = 1;
-// }
-
-// message DeleteDeviceProfileRequest {
-//     // Device EUI (HEX encoded).
-//     string dev_eui = 1 [json_name = "UUID"];
-// }
 
