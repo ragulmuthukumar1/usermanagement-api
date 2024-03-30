@@ -132,56 +132,6 @@
         ]
       }
     },
-    "/api/devices/{dev_eui}/keys": {
-      "get": {
-        "summary": "GetKeys returns the device-keys for the given DevEUI.",
-        "operationId": "GetKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/apiGetDeviceProfileResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      },
-      "delete": {
-        "summary": "DeleteKeys deletes the device-keys for the given DevEUI.",
-        "operationId": "DeleteKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      }
-    },
     "/api/devices/{device.dev_eui}": {
       "put": {
         "summary": "Update updates the device matching the given DevEUI.",
@@ -215,84 +165,9 @@
           "DeviceService"
         ]
       }
-    },
-    "/api/devices/{device_profile.dev_eui}/keys": {
-      "post": {
-        "summary": "CreateKeys creates the given device-keys.",
-        "operationId": "CreateKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "device_profile.dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/apiCreateDeviceProfileRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      },
-      "put": {
-        "summary": "UpdateKeys updates the device-keys.",
-        "operationId": "UpdateKeys",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "device_profile.dev_eui",
-            "description": "Device EUI (HEX encoded).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/apiUpdateDeviceProfileRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DeviceService"
-        ]
-      }
     }
   },
   "definitions": {
-    "apiCreateDeviceProfileRequest": {
-      "type": "object",
-      "properties": {
-        "deviceProfile": {
-          "$ref": "#/definitions/apiDeviceProfile",
-          "description": "Device-keys object to create."
-        }
-      }
-    },
     "apiCreateDeviceRequest": {
       "type": "object",
       "properties": {
@@ -354,6 +229,10 @@
           },
           "description": "Tags (user defined).\nThese tags are exposed in the event payloads or to integration. Tags are\nintended for aggregation and filtering."
         },
+        "profile": {
+          "type": "string",
+          "title": "Device Profile"
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time",
@@ -383,28 +262,6 @@
         }
       }
     },
-    "apiDeviceProfile": {
-      "type": "object",
-      "properties": {
-        "UUID": {
-          "type": "string",
-          "description": "Device EUI (HEX encoded)."
-        },
-        "profile": {
-          "type": "string",
-          "title": "profile json"
-        }
-      }
-    },
-    "apiGetDeviceProfileResponse": {
-      "type": "object",
-      "properties": {
-        "deviceProfile": {
-          "$ref": "#/definitions/apiDeviceProfile",
-          "description": "Device-key object."
-        }
-      }
-    },
     "apiGetDeviceResponse": {
       "type": "object",
       "properties": {
@@ -428,15 +285,6 @@
             "$ref": "#/definitions/apiDeviceListItem"
           },
           "description": "Devices within this result-set."
-        }
-      }
-    },
-    "apiUpdateDeviceProfileRequest": {
-      "type": "object",
-      "properties": {
-        "deviceProfile": {
-          "$ref": "#/definitions/apiDeviceProfile",
-          "description": "Device-keys object to update."
         }
       }
     },
