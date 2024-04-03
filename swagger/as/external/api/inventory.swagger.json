@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "as/external/api/device.proto",
+    "title": "as/external/api/inventory.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -15,22 +15,22 @@
     "application/json"
   ],
   "paths": {
-    "/api/devices": {
+    "/api/inventory/items": {
       "get": {
-        "summary": "List returns the available devices.",
+        "summary": "List returns the available items.",
         "operationId": "List",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/apiListDeviceResponse"
+              "$ref": "#/definitions/apiListItemResponse"
             }
           }
         },
         "parameters": [
           {
             "name": "limit",
-            "description": "Max number of devices to return in the result-set.",
+            "description": "Max number of items to return in the result-set.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -53,11 +53,11 @@
           }
         ],
         "tags": [
-          "DeviceService"
+          "InventoryService"
         ]
       },
       "post": {
-        "summary": "Create creates the given device.",
+        "summary": "Create creates the given item.",
         "operationId": "Create",
         "responses": {
           "200": {
@@ -73,18 +73,18 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/apiCreateDeviceRequest"
+              "$ref": "#/definitions/apiCreateItemRequest"
             }
           }
         ],
         "tags": [
-          "DeviceService"
+          "InventoryService"
         ]
       }
     },
-    "/api/devices/{device.uuid}": {
+    "/api/inventory/items/{item.uuid}": {
       "put": {
-        "summary": "Update updates the device matching the given DevEUI.",
+        "summary": "Update updates the item matching the given DevEUI.",
         "operationId": "Update",
         "responses": {
           "200": {
@@ -96,8 +96,8 @@
         },
         "parameters": [
           {
-            "name": "device.uuid",
-            "description": "Device EUI (HEX encoded).",
+            "name": "item.uuid",
+            "description": "Item EUI (HEX encoded).",
             "in": "path",
             "required": true,
             "type": "string"
@@ -107,42 +107,42 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/apiUpdateDeviceRequest"
+              "$ref": "#/definitions/apiUpdateItemRequest"
             }
           }
         ],
         "tags": [
-          "DeviceService"
+          "InventoryService"
         ]
       }
     },
-    "/api/devices/{uuid}": {
+    "/api/inventory/items/{uuid}": {
       "get": {
-        "summary": "Get returns the device matching the given UUID.",
+        "summary": "Get returns the item matching the given UUID.",
         "operationId": "Get",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/apiGetDeviceResponse"
+              "$ref": "#/definitions/apiGetItemResponse"
             }
           }
         },
         "parameters": [
           {
             "name": "uuid",
-            "description": "Device EUI (HEX encoded).",
+            "description": "Item EUI (HEX encoded).",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "DeviceService"
+          "InventoryService"
         ]
       },
       "delete": {
-        "summary": "Delete deletes the device matching the given UUID.",
+        "summary": "Delete deletes the item matching the given UUID.",
         "operationId": "Delete",
         "responses": {
           "200": {
@@ -155,72 +155,81 @@
         "parameters": [
           {
             "name": "uuid",
-            "description": "Device EUI (HEX encoded).",
+            "description": "Item EUI (HEX encoded).",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "DeviceService"
+          "InventoryService"
         ]
       }
     }
   },
   "definitions": {
-    "apiCreateDeviceRequest": {
+    "apiCreateItemRequest": {
       "type": "object",
       "properties": {
-        "device": {
-          "$ref": "#/definitions/apiDevice",
-          "description": "Device object to create."
+        "item": {
+          "$ref": "#/definitions/apiItem",
+          "description": "Item object to create."
         }
       }
     },
-    "apiDevice": {
+    "apiGetItemResponse": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/apiItem",
+          "description": "Item object."
+        }
+      }
+    },
+    "apiItem": {
       "type": "object",
       "properties": {
         "UUID": {
           "type": "string",
-          "description": "Device EUI (HEX encoded)."
+          "description": "Item EUI (HEX encoded)."
         },
         "name": {
           "type": "string",
-          "description": "Name of the device (if left blank, it will be set to the DevEUI)."
+          "description": "Name of the item (if left blank, it will be set to the DevEUI)."
         },
         "description": {
           "type": "string",
-          "description": "Description of the device."
+          "description": "Description of the item."
         },
         "isOnboarded": {
           "type": "boolean",
           "format": "boolean",
-          "description": "Device is onboarded to respective server."
+          "description": "Item is onboarded to respective server."
         },
         "isGateway": {
           "type": "boolean",
           "format": "boolean",
-          "description": "Device is agateway."
+          "description": "Item is agateway."
         },
         "isOnboardingServerExternal": {
           "type": "boolean",
           "format": "boolean",
-          "description": "Device is onboarding server internal or external."
+          "description": "Item is onboarding server internal or external."
         },
         "communication": {
           "type": "string",
-          "description": "Device is mode of communication like LoRaWAN, MQTT, GSM, TCP, CoAP."
+          "description": "Item is mode of communication like LoRaWAN, MQTT, GSM, TCP, CoAP."
         },
         "type": {
           "type": "string",
-          "description": "Device type like WaterMeter, TempSensor, Energy Meter."
+          "description": "Item type like WaterMeter, TempSensor, Energy Meter."
         },
         "variables": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Variables (user defined).\nThese variables can be used together with integrations to store tokens /\nsecrets that must be configured per device. These variables are not\nexposed in the event payloads."
+          "description": "Variables (user defined).\nThese variables can be used together with integrations to store tokens /\nsecrets that must be configured per item. These variables are not\nexposed in the event payloads."
         },
         "tags": {
           "type": "object",
@@ -234,7 +243,7 @@
           "additionalProperties": {
             "type": "string"
           },
-          "title": "Device Profile"
+          "title": "Item Profile"
         },
         "createdAt": {
           "type": "string",
@@ -248,55 +257,46 @@
         }
       }
     },
-    "apiDeviceListItem": {
+    "apiListItem": {
       "type": "object",
       "properties": {
         "UUID": {
           "type": "string",
-          "description": "Device EUI (HEX encoded)."
+          "description": "Item EUI (HEX encoded)."
         },
         "name": {
           "type": "string",
-          "description": "Name of the device."
+          "description": "Name of the item."
         },
         "description": {
           "type": "string",
-          "description": "Description of the device."
+          "description": "Description of the item."
         }
       }
     },
-    "apiGetDeviceResponse": {
-      "type": "object",
-      "properties": {
-        "device": {
-          "$ref": "#/definitions/apiDevice",
-          "description": "Device object."
-        }
-      }
-    },
-    "apiListDeviceResponse": {
+    "apiListItemResponse": {
       "type": "object",
       "properties": {
         "totalCount": {
           "type": "string",
           "format": "int64",
-          "description": "Total number of devices available within the result-set."
+          "description": "Total number of items available within the result-set."
         },
         "result": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/apiDeviceListItem"
+            "$ref": "#/definitions/apiListItem"
           },
-          "description": "Devices within this result-set."
+          "description": "Items within this result-set."
         }
       }
     },
-    "apiUpdateDeviceRequest": {
+    "apiUpdateItemRequest": {
       "type": "object",
       "properties": {
-        "device": {
-          "$ref": "#/definitions/apiDevice",
-          "description": "Device object to update."
+        "item": {
+          "$ref": "#/definitions/apiItem",
+          "description": "Item object to update."
         }
       }
     }
