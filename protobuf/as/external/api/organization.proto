@@ -221,16 +221,16 @@ message OrganizationUserListItem {
 
 	// User is able to modify device related resources (applications,
 	// device-profiles, devices, multicast-groups).
-	bool is_device_admin = 6;
+	bool is_editor = 4;
 
 	// User is able to modify gateways.
-	bool is_gateway_admin = 7;
+	bool is_viewer = 5;
 
 	// Created at timestamp.
-	google.protobuf.Timestamp created_at = 4;
+	google.protobuf.Timestamp created_at = 6;
 
 	// Last update timestamp.
-	google.protobuf.Timestamp updated_at = 5;
+	google.protobuf.Timestamp updated_at = 7;
 }
 
 message AddOrganizationUserRequest {
