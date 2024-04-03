@@ -97,11 +97,10 @@
         "parameters": [
           {
             "name": "id",
-            "description": "Organization ID.",
+            "description": "Organization UIID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -125,8 +124,7 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -152,8 +150,7 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "body",
@@ -187,8 +184,7 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "limit",
@@ -230,16 +226,14 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "user_id",
             "description": "User ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -263,16 +257,14 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "user_id",
             "description": "User ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -298,8 +290,7 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "body",
@@ -333,16 +324,14 @@
             "description": "Organization ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "organization_user.user_id",
             "description": "User ID.",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "body",
@@ -383,7 +372,6 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "int64",
           "description": "Organization ID."
         }
       }
@@ -464,7 +452,6 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "int64",
           "description": "Organization ID."
         },
         "name": {
@@ -497,7 +484,6 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "int64",
           "description": "Organization ID."
         },
         "name": {
@@ -530,12 +516,10 @@
       "properties": {
         "organizationID": {
           "type": "string",
-          "format": "int64",
           "description": "Organization ID."
         },
         "userID": {
           "type": "string",
-          "format": "int64",
           "description": "User ID."
         },
         "isAdmin": {
@@ -543,12 +527,12 @@
           "format": "boolean",
           "description": "User is admin within the context of the organization.\nThere is no need to set the is_device_admin and is_gateway_admin flags."
         },
-        "isDeviceAdmin": {
+        "isEditor": {
           "type": "boolean",
           "format": "boolean",
           "description": "User is able to modify device related resources (applications,\ndevice-profiles, devices, multicast-groups)."
         },
-        "isGatewayAdmin": {
+        "isViewer": {
           "type": "boolean",
           "format": "boolean",
           "description": "User is able to modify gateways."
@@ -564,7 +548,6 @@
       "properties": {
         "userID": {
           "type": "string",
-          "format": "int64",
           "description": "User ID.\nThis is not used on create, you must set the user email address\nassociated with the user to add an user to an organization."
         },
         "email": {
