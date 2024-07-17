@@ -48,103 +48,36 @@ service UserService {
 		};
 	}
 
-	// UpdatePassword updates a password.
-	rpc UpdatePassword(UpdateUserPasswordRequest) returns (google.protobuf.Empty) {
-		option(google.api.http) = {
-			put: "/api/users/{user_id}/password"
-			body: "*"
-		};
-	}
-
 }
 
 message User {
 	// User UUID.
 	// Will be set automatically on create.
-	string id = 1;
+	int32 id = 1;
 
 	// The session timeout, in minutes.
-	int32 session_ttl = 2 [json_name = "sessionTTL"];
+	string name = 2 [json_name = "name"];
 
 	// Set to true to make the user a super administrator.
-	bool is_super_admin1 = 3;
-
-	// Set to true to make the user a administrator.
-	bool is_admin = 4;
-
-	// Set to false to disable the user.
-	bool is_active = 5;
+	int32 age = 3;
 
 	// E-mail of the user.
-	string email = 6;
-
-	// Optional note to store with the user.
-	string note = 7;
-}
-
-message UserListItem {
-	// User ID.
-	// Will be set automatically on create.
-	string id = 1;
-
-	// Email of the user.
-	string email = 2;
-
-	// The session timeout, in minutes.
-	int32 session_ttl = 3 [json_name = "sessionTTL"];
-
-	// Set to true to make the user a super administrator.
-	bool is_super_admin = 4;
-
-	// Set to true to make the user a global administrator.
-	bool is_admin = 5;
-
-	// Set to false to disable the user.
-	bool is_active = 6;
-
-	// Created at timestamp.
-	google.protobuf.Timestamp created_at = 7;
-
-	// Last update timestamp.
-	google.protobuf.Timestamp updated_at = 8;
-}
-
-message UserOrganization {
-	// Organization ID.
-	string organization_id = 1 [json_name = "organizationID"];
-
-	// User is admin within the context of the organization.
-    // There is no need to set the is_editor and is_viewer flags.
-	bool is_admin = 2;
-
-    // User is able to modify device related resources (applications,
-    // device-profiles, devices, multicast-groups).
-    bool is_editor = 3;
-
-    // User is able to view.
-    bool is_viewer = 4;
-
+	string email = 4;
 }
 
 message CreateUserRequest {
 	// User object to create.
 	User user = 1;
-
-	// Password of the user.
-	string password = 2;
-
-	// Add the user to the following organizations.
-	repeated UserOrganization organizations = 3;
 }
 
 message CreateUserResponse {
 	// User UUID.
-	string id = 1;
+	int32 id = 1;
 }
 
 message GetUserRequest {
 	// User UUID.
-	string id = 1;
+	int32 id = 1;
 }
 
 message GetUserResponse {
@@ -165,7 +98,7 @@ message UpdateUserRequest {
 
 message DeleteUserRequest {
 	// User UUID.
-	string id = 1;
+	int32 id = 1;
 }
 
 message ListUserRequest {
@@ -181,13 +114,13 @@ message ListUserResponse {
 	int64 total_count = 1;
 
 	// Result-set.
-	repeated UserListItem result = 2;
+	repeated User result = 2;
 }
 
 message UpdateUserPasswordRequest {
-	// User ID.
-	string user_id = 1;
+	// User object.
+	User user = 1;
 
-	// New pasword.
-	string password = 2;
+     // New pasword.
+	// string password = 2;
 }
