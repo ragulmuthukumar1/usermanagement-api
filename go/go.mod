@@ -1,4 +1,4 @@
-module github.com/clodpi/platform-api/go/v3
+module github.com/ragulmuthukumar1/usermanagement-api/go/v3
 
 go 1.21
 

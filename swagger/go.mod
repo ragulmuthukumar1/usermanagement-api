@@ -1,4 +1,4 @@
-module github.com/clodpi/platform-api/swagger
+module github.com/ragulmuthukumar1/usermanagement-api/swagger
 
 go 1.21
 
