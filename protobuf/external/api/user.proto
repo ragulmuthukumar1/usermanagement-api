@@ -67,7 +67,7 @@ message User {
 	int32 session_ttl = 2 [json_name = "sessionTTL"];
 
 	// Set to true to make the user a super administrator.
-	bool is_super_admin = 3;
+	bool is_super_admin1 = 3;
 
 	// Set to true to make the user a administrator.
 	bool is_admin = 4;
